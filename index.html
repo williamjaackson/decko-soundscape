@@ -6,64 +6,95 @@
     <link rel="stylesheet" href="output.css">
     <title>Document</title>
     <script type="module" src="index.js"></script>
+
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            height: 100vh; /* Full viewport height */
+        }
+    
+        .grid-item {
+            display: flex; /* Center content */
+            justify-content: center;
+            align-items: center;
+            background-color: #4A5568; /* Background color */
+            color: white; /* Text color */
+            border: 1px solid #2D3748; /* Optional border */
+        }
+    </style>    
+      
 </head>
 <body class="font-inter h-screen text-slate-600">
-    <nav class="bg-green-500 px-4 py-1 text-white"> <!-- Navbar -->
-        <h1 class="font-bold text-md">Decko Soundscape / Calculator</h1>
-    </nav>
-    
-    <div class="flex gap-4 p-4"> <!-- Body -->
-
-        <aside class="flex flex-col gap-2 w-min"> <!-- Sidebar -->
-            
-            <div class="grid gap-1"> <!-- Room Dimensions -->
-                <div class="flex justify-between">
-                    <label class="uppercase text-sm text-slate-500 font-bold">Room Dimensions</label>
-                    <button class="text-blue-600 hover:text-blue-700 underline rounded-md text-sm">save</button>
-                </div>
-                <div class="flex gap-2">
-                    <div class="flex">
-                        <input type="text" class="bg-white border border-slate-300 px-1 text-right w-[4rem] rounded-l-md outline-1 text-md">
-                        <div class="bg-slate-300 rounded-r-md flex flex-col py-1 justify-end pl-1 pr-2">
-                            <span class="text-sm">mm</span>
-                        </div>
+    <div class="flex h-screen"> <!-- Body -->
+        <aside class="flex flex-col w-min justify-between p-4 border-r border-slate-100"> <!-- Sidebar -->
+            <div class="flex flex-col gap-2 w-min">
+                <!-- Title -->
+                <!-- <h1 class="font-light">Decko Soundscape <button onclick="alert('calc is short for calculator btw.')">Calc</button></h1> -->
+                
+                <div class="grid gap-1"> <!-- Room Dimensions -->
+                    <div class="flex justify-between">
+                        <label class="uppercase text-sm text-slate-500 font-bold">Room Dimensions</label>
+                        <button id="save-room-settings" class="text-blue-600 hover:text-blue-700 underline rounded-md text-sm hidden">save</button>
                     </div>
-                    <span class="text-right">x</span>
-                    <div>
+                    <div class="flex gap-2">
                         <div class="flex">
-                            <input type="text" class="bg-white border border-slate-300 px-1 text-right w-[4rem] rounded-l-md outline-1 text-md">
+                            <input type="text" id="room-width" value="3000" class="bg-white border border-slate-300 px-1 text-right w-[4rem] rounded-l-md outline-1 text-md">
                             <div class="bg-slate-300 rounded-r-md flex flex-col py-1 justify-end pl-1 pr-2">
                                 <span class="text-sm">mm</span>
                             </div>
                         </div>
+                        <span class="text-right">x</span>
+                        <div>
+                            <div class="flex">
+                                <input type="text" id="room-height" value="3000" class="bg-white border border-slate-300 px-1 text-right w-[4rem] rounded-l-md outline-1 text-md">
+                                <div class="bg-slate-300 rounded-r-md flex flex-col py-1 justify-end pl-1 pr-2">
+                                    <span class="text-sm">mm</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <span id="room-settings-error" class="text-red-500 text-sm hidden">Unknown Error</span>
+                </div>
+    
+                <div class="grid gap-1"> <!-- Material -->
+                    <label class="uppercase text-sm text-slate-500 font-bold">Material</label>
+                    <div class="grid grid-cols-2 gap-1 text-white bg-slate-100 p-2 rounded-md">
+                        <button class="border-[#998269] border-2 text-[#998269] rounded-md hover:bg-[#998269] hover:text-white">Oak</button>
+                        <button class="border-[#4c4c4c] border-2 text-[#4c4c4c] rounded-md hover:bg-[#4c4c4c] hover:text-white">Ebony</button>
+                        <button class="border-[#9c9c93] border-2 text-[#9c9c93] rounded-md hover:bg-[#9c9c93] hover:text-white">Beech</button>
+                        <button class="border-[#d9bb91] border-2 text-[#d9bb91] rounded-md hover:bg-[#d9bb91] hover:text-white">Maple</button>
+                    </div>
+                </div>
+    
+                <div class="grid gap-1"> <!-- Inventory -->
+                    <label class="uppercase text-sm text-slate-500 font-bold">Inventory</label>
+                    <div class="grid grid-cols-2 gap-1">
+                        <!-- tooltip: "DECKO SOUNDSCAPE Acoustic Wall - OAK - Square - Price/Box of 5 Panels" -->
+                        <div class="flex flex-col justify-center" title="DECKO SOUNDSCAPE Acoustic Wall - OAK - Square - Price/Box of 5 Panels">
+                            <img src="./images/oak-square.png" alt="Item 1" class="w-full object-scale-down aspect-square bg-slate-200 hover:bg-slate-300 cursor-pointer rounded-md p-3" draggable="false">
+                            <span class="text-sm font-bold w-min mx-auto">600x600</span>
+                        </div>
+                        <div class="flex flex-col justify-center" title="DECKO SOUNDSCAPE Acoustic Wall - OAK - Long - Price/Box of 3 Panels">
+                            <img src="./images/oak-long.png" alt="Item 1" class="w-full object-scale-down aspect-square bg-slate-200 hover:bg-slate-300 cursor-pointer rounded-md p-3" draggable="false">
+                            <span class="text-sm font-bold w-min mx-auto">600x1200</span>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
-
-            <div class="grid gap-1"> <!-- Material -->
-                <label class="uppercase text-sm text-slate-500 font-bold">Material</label>
-                <div class="grid grid-cols-2 gap-1 text-white bg-slate-100 p-2 rounded-md">
-                    <button class="border-[#998269] border-2 text-[#998269] rounded-md hover:bg-[#998269] hover:text-white">Oak</button>
-                    <button class="border-[#4c4c4c] border-2 text-[#4c4c4c] rounded-md hover:bg-[#4c4c4c] hover:text-white">Ebony</button>
-                    <button class="border-[#9c9c93] border-2 text-[#9c9c93] rounded-md hover:bg-[#9c9c93] hover:text-white">Beech</button>
-                    <button class="border-[#d9bb91] border-2 text-[#d9bb91] rounded-md hover:bg-[#d9bb91] hover:text-white">Maple</button>
-                </div>
-            </div>
-
-            <div class="grid gap-1"> <!-- Inventory -->
-                <label class="uppercase text-sm text-slate-500 font-bold">Inventory</label>
-                <div class="grid grid-cols-2 gap-1">
-                    <!-- tooltip: "DECKO SOUNDSCAPE Acoustic Wall - OAK - Square - Price/Box of 5 Panels" -->
-                    <div class="flex flex-col justify-center" title="DECKO SOUNDSCAPE Acoustic Wall - OAK - Square - Price/Box of 5 Panels">
-                        <img src="./images/oak-small.png" alt="Item 1" class="w-full object-cover bg-slate-200 rounded-md p-3">
-                        <span class="text-sm font-bold w-min mx-auto">600x600</span>
-                    </div>
-                    <div class="flex flex-col justify-center" title="DECKO SOUNDSCAPE Acoustic Wall - OAK - Square - Price/Box of 5 Panels">
-                        <img src="./images/oak-large.png" alt="Item 1" class="w-full object-scale-down aspect-square bg-slate-200 rounded-md p-3">
-                        <span class="text-sm font-bold w-min mx-auto">600x600</span>
-                    </div>
-                    
-                </div>
+            
+            <div> <!-- Copyright + Credits-->
+                <p class="text-[8px] w-max mx-auto">
+                    Version 0.0.1 (latest)
+                </p>
+                <p id="credits" class="text-[8px] w-max mx-auto">
+                    Built by <a id="credits-website" href="https://github.com/williamjaackson" class="underline hover:text-blue-500">William Jackson</a> • <a href="https://github.com/williamjaackson" class="underline hover:text-blue-500">Github</a>
+                </p>
+                <p id="copyright" class="text-[8px] w-max mx-auto">
+                    Copyright © <span id="copyright-year"><span class="bg-slate-400 text-transparent animate-pulse rounded-sm">XXXX</span></span> DECKO Australia. | ABN: 11981263591
+                </p>
             </div>
 
 
@@ -75,8 +106,12 @@
         </aside>
 
         <!-- Main Room -->
-        <main class="w-full grid">
-            <div class="bg-slate-100 size-full"></div>
+        <main class="w-full h-screen flex items-center justify-center">
+            <div id="grid-wrapper" class="w-full h-full p-auto bg-slate-100 grid place-items-center">
+                <div id="grid">
+                </div>
+                    
+            </div>
         </main>
 
     </div>

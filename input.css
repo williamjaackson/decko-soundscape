@@ -11,3 +11,7 @@
   /* font-weight: <weight>; */
   font-style: normal;
 }
+
+#grid {
+    @apply grid
+}

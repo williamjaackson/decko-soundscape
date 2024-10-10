@@ -1,3 +1,2 @@
-// main.js
-// import { toggleAccordion } from './scripts/accordion.js';
-import './scripts/accordion.js';
+import './scripts/copyright.js';
+import './scripts/grid.js';
