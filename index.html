@@ -7,21 +7,21 @@
     <title>Document</title>
     <script type="module" src="index.js"></script>
 </head>
-<body class="font-inter h-screen">
+<body class="font-inter h-screen text-slate-600">
     <nav class="bg-green-500 px-4 py-1 text-white"> <!-- Navbar -->
         <h1 class="font-bold text-md">Decko Soundscape / Calculator</h1>
     </nav>
     
     <div class="flex gap-4 p-4"> <!-- Body -->
 
-        <aside class="flex flex-col gap-2"> <!-- Sidebar -->
+        <aside class="flex flex-col gap-2 w-min"> <!-- Sidebar -->
             
             <div class="grid gap-1"> <!-- Room Dimensions -->
                 <div class="flex justify-between">
                     <label class="uppercase text-sm text-slate-500 font-bold">Room Dimensions</label>
                     <button class="text-blue-600 hover:text-blue-700 underline rounded-md text-sm">save</button>
                 </div>
-                <div class="flex gap-2 text-slate-600">
+                <div class="flex gap-2">
                     <div class="flex">
                         <input type="text" class="bg-white border border-slate-300 px-1 text-right w-[4rem] rounded-l-md outline-1 text-md">
                         <div class="bg-slate-300 rounded-r-md flex flex-col py-1 justify-end pl-1 pr-2">
@@ -37,6 +37,32 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="grid gap-1"> <!-- Material -->
+                <label class="uppercase text-sm text-slate-500 font-bold">Material</label>
+                <div class="grid grid-cols-2 gap-1 text-white bg-slate-100 p-2 rounded-md">
+                    <button class="border-[#998269] border-2 text-[#998269] rounded-md hover:bg-[#998269] hover:text-white">Oak</button>
+                    <button class="border-[#4c4c4c] border-2 text-[#4c4c4c] rounded-md hover:bg-[#4c4c4c] hover:text-white">Ebony</button>
+                    <button class="border-[#9c9c93] border-2 text-[#9c9c93] rounded-md hover:bg-[#9c9c93] hover:text-white">Beech</button>
+                    <button class="border-[#d9bb91] border-2 text-[#d9bb91] rounded-md hover:bg-[#d9bb91] hover:text-white">Maple</button>
+                </div>
+            </div>
+
+            <div class="grid gap-1"> <!-- Inventory -->
+                <label class="uppercase text-sm text-slate-500 font-bold">Inventory</label>
+                <div class="grid grid-cols-2 gap-1">
+                    <!-- tooltip: "DECKO SOUNDSCAPE Acoustic Wall - OAK - Square - Price/Box of 5 Panels" -->
+                    <div class="flex flex-col justify-center" title="DECKO SOUNDSCAPE Acoustic Wall - OAK - Square - Price/Box of 5 Panels">
+                        <img src="./images/oak-small.png" alt="Item 1" class="w-full object-cover bg-slate-200 rounded-md p-3">
+                        <span class="text-sm font-bold w-min mx-auto">600x600</span>
+                    </div>
+                    <div class="flex flex-col justify-center" title="DECKO SOUNDSCAPE Acoustic Wall - OAK - Square - Price/Box of 5 Panels">
+                        <img src="./images/oak-large.png" alt="Item 1" class="w-full object-scale-down aspect-square bg-slate-200 rounded-md p-3">
+                        <span class="text-sm font-bold w-min mx-auto">600x600</span>
+                    </div>
+                    
                 </div>
             </div>
 
