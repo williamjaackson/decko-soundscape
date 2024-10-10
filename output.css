@@ -632,6 +632,14 @@ video {
   height: min-content;
 }
 
+.h-full {
+  height: 100%;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
 .w-full {
   width: 100%;
 }
