@@ -1,9 +1,10 @@
 function toggle(accordionBody, accordionButton) {
-    const accordionBody = document.querySelector(accordionBody);
-    accordion.classList.toggle('hidden');
+    accordionBody = document.querySelector(accordionBody);
+    accordionBody.classList.toggle('hidden');
 
-    const accordionButton = document.querySelector(accordionButton);
-    
+    accordionButton = document.querySelector(accordionButton);
+    accordionButton.classList.toggle('rotate-180');
+
 }
 
 window.accordion = {

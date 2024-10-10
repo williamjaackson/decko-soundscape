@@ -8,42 +8,53 @@
     <script type="module" src="index.js"></script>
 </head>
 <body class="font-inter">
-    <nav class="bg-green-500 p-4 text-white">
-        <h1 class="font-bold">Decko Soundscape - Calculator</h1>
+    <!-- Navbar -->
+    <nav class="bg-green-500 px-4 py-1 text-white">
+        <h1 class="font-bold text-md">Decko Soundscape / Calculator</h1>
     </nav>
 
-    <div class="grid grid-cols-3 gap-4 p-4">
-        <div>
-            <div>
-                <div id="settings">
-                    <div class="flex justify-between border-b border-slate-200 pb-1 mb-2 align-middle">
-                        <h2 class="text-lg">Settings</h2>
-                        <button class="accordion-button fill-black size-3 my-auto" onclick="window.accordion.toggle('#settings .accordion-body', '#settings .accordion-button')">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="hidden"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z"/></svg>
-                        </button>
-                    </div>
-                    <div class="accordion-body hidden">
-                        body
+    <div class="flex gap-4 p-4">
+        <aside class="flex flex-col gap-2">
+            <div class="grid gap-1">
+                <div class="flex justify-between">
+                    <label class="uppercase text-sm text-slate-500 font-bold">Room Dimensions</label>
+                    <button class="text-blue-600 hover:text-blue-700 underline rounded-md text-sm">save</button>
+                </div>
+                <div>
+                    <div class="flex gap-2 text-slate-600">
+                        <div class="flex">
+                            <input type="text" class="bg-white border border-slate-300 px-1 text-right w-[4rem] rounded-l-md outline-1 text-md">
+                            <div class="bg-slate-300 rounded-r-md flex flex-col py-1 justify-end pl-1 pr-2">
+                                <span class="text-sm">mm</span>
+                            </div>
+                        </div>
+                        <span class="text-right">x</span>
+                        <div>
+                            <div class="flex">
+                                <input type="text" class="bg-white border border-slate-300 px-1 text-right w-[4rem] rounded-l-md outline-1 text-md">
+                                <div class="bg-slate-300 rounded-r-md flex flex-col py-1 justify-end pl-1 pr-2">
+                                    <span class="text-sm">mm</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- form -->
-                <form class="grid">
+                <!-- <form class="grid">
                     <label for="grid-size">Room Size</label>
                     <input type="number" id="grid-size" name="grid-size" value="100" min="1" class="w-full p-2 border rounded-md">
                     <input type="number" id="grid-size" name="grid-size" value="100" min="1" class="w-full p-2 border rounded-md">
-                </form>
+                </form> -->
             </div>
-            <div>
-                <!-- grid size: 100mm x 100mm
+            <!-- <div>
+                grid size: 100mm x 100mm
                 panel size: 600mm x 600mm
-                panel size 2: 600mm x 1200mm (two orientations) -->
-            </div>
-            <div>
+                panel size 2: 600mm x 1200mm (two orientations)
+            </div> -->
+            <!-- <div>
                 inventory
-            </div>
-        </div>
-        <main class="col-span-2">
+            </div> -->
+        </aside>
+        <main class="w-full grid">
             <div class="bg-slate-100 size-full"></div>
         </main>
 
