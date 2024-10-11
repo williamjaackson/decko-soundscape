@@ -1,34 +1,47 @@
-import { gridSettings, screenSettings, getScreenPosition } from './grid.js';
-import { inventoryData } from './inventory.js';
+import { grid, gridSettings, getScreenPosition } from './grid.js';
 
-export function itemData(itemID) {
-    const itemData = inventoryData.items.find(item => item.id === itemID) 
-    if (!itemData) return;
-    return itemData;
-}
+// export function itemPlacement(gridPos, itemData) {
+//     const itemGridSize = {
+//         width: itemData.width / gridSettings.cellSize,
+//         height: itemData.height / gridSettings.cellSize,
+//     }
 
-export function itemPlacement(gridPos, itemData) {
-    const itemGridSize = {
-        width: itemData.width / gridSettings.cellSize,
-        height: itemData.height / gridSettings.cellSize,
-    }
-
-    const itemGridPos = {
-        col: gridPos.col - Math.round((itemGridSize.width + 0.5) / 2),
-        row: gridPos.row - Math.round((itemGridSize.height + 0.5) / 2) ,
-    }
+//     const itemGridPos = {
+//         col: gridPos.col - Math.round((itemGridSize.width + 0.5) / 2),
+//         row: gridPos.row - Math.round((itemGridSize.height + 0.5) / 2) ,
+//     }
     
-    itemGridPos.col = Math.max(0, Math.min(itemGridPos.col, gridSettings.width - itemGridSize.width));
-    itemGridPos.row = Math.max(0, Math.min(itemGridPos.row, gridSettings.height - itemGridSize.height));
+//     // itemGridPos.col = Math.max(0, Math.min(itemGridPos.col, gridSettings.width - itemGridSize.width));
+//     // itemGridPos.row = Math.max(0, Math.min(itemGridPos.row, gridSettings.height - itemGridSize.height));
 
-    const screenPos = getScreenPosition(grid, itemGridPos.row, itemGridPos.col);
-    const screenSize = {
-        width: itemGridSize.width * screenSettings.cellSize,
-        height: itemGridSize.height * screenSettings.cellSize,
-    }
+//     const screenPos = getScreenPosition(grid, itemGridPos.row, itemGridPos.col);
+//     const screenSize = {
+//         width: itemGridSize.width * screenSettings.cellSize,
+//         height: itemGridSize.height * screenSettings.cellSize,
+//     }
 
-    const returnData = { position: screenPos, size: screenSize };
-    return returnData;
+//     const returnData = { position: screenPos, size: screenSize };
+//     return returnData;
+// }
+
+export function createObject(itemData) {
+    const itemContainer = document.createElement('div');
+    itemContainer.style.width = `${(itemData.width) * gridSettings.cellSize}px`;
+    itemContainer.style.height = `${(itemData.height) * gridSettings.cellSize}px`;
+    
+    const itemImage = document.createElement('img');
+    itemImage.src = itemData.image;
+    itemImage.alt = itemData.name;
+    itemImage.draggable = false;
+    
+    itemContainer.appendChild(itemImage);
+
+    itemContainer.addEventListener('mousedown', (event) => {
+        event.preventDefault();
+        grid.removeChild(itemContainer);
+    });
+
+    return itemContainer;
 }
 
 export function createItem(size, itemData) {
@@ -47,11 +60,10 @@ export function createItem(size, itemData) {
 
 // This function creates an item and snaps it to the grid using grid coordinates
 export function createItemOnGrid(grid, gridPos, itemID) {
-    const itemData = inventoryData.items.find(item => item.id === itemID) 
+    // const itemData = inventoryData.items.find(item => item.id === itemID) 
     if (!itemData) return;
 
     const { position, size } = itemPlacement(gridPos, itemData);
-    console.log(position, size)
 
     const newItem = document.createElement('img');
     newItem.src = itemData.image;

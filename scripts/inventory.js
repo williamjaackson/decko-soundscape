@@ -1,7 +1,7 @@
 import { inventoryItem } from './spawning.js';
 
 const inventoryList = document.getElementById('inventory');
-export const inventoryData = {}
+const inventoryData = {}
 
 document.addEventListener('DOMContentLoaded', () => {
     // Load all items from items.json
@@ -39,3 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 });
+
+export function itemData(itemID) {
+    const itemData = inventoryData.items.find(item => item.id === itemID) 
+    if (!itemData) return;
+    return itemData;
+}

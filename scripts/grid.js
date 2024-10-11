@@ -1,91 +1,55 @@
 const gridSettings = {
-    width: null,
-    height: null,
-    cellSize: 100,
+    width: 30,
+    height: 30,
+    cellSize: null,      
 };
 
-const screenSettings = {
-    gridWidth: null,
-    gridHeight: null,
-    cellSize: null,
-}
+// const screenSettings = {
+//     gridWidth: null,
+//     gridHeight: null,
+//     cellSize: null,
+// }
 
 let gridWrapper;
 let grid;
+let gridRect;
 
-export function initGrid() {
+document.addEventListener('DOMContentLoaded', () => {
     gridWrapper = document.getElementById('grid-wrapper');
     grid = document.getElementById('grid');
-    updateGrid(gridSettings.width, gridSettings.height);
-
-    // Attach dragover and drop event listeners to the grid
-    grid.addEventListener('dragover', handleDragOver);
-    grid.addEventListener('drop', handleDrop);
-}
-
-// Handle the dragover event (needed to allow drop)
-function handleDragOver(event) {
-    event.preventDefault(); // Necessary to allow drop
-    event.dataTransfer.dropEffect = 'move'; // Indicate that the item will be moved
-}
-
-// Handle the drop event
-function handleDrop(event) {
-    event.preventDefault(); // Prevent default behaviour
-
-    // Get the item data (src and dimensions) from dataTransfer
-    const itemData = JSON.parse(event.dataTransfer.getData('text/plain'));
-
-    // Create a new image element to represent the dropped item
-    const newItem = document.createElement('img');
-    newItem.src = itemData.src;
-    newItem.alt = 'Dropped item';
-    newItem.classList.add('dropped-item', 'absolute', 'object-scale-down');
-    newItem.style.width = '100px';  // You can change this to use item dimensions if available
-    newItem.style.height = '100px';
-
-    // Position the item relative to the grid based on drop coordinates
-    const dropX = event.clientX - grid.getBoundingClientRect().left;
-    const dropY = event.clientY - grid.getBoundingClientRect().top;
-    newItem.style.position = 'absolute';
-    newItem.style.left = `${dropX}px`;
-    newItem.style.top = `${dropY}px`;
-
-    // Append the new item to the grid
-    grid.appendChild(newItem);
-}
-
-// Resize the grid based on available space
-export function resizeGrid() {
-    updateGrid(gridSettings.width, gridSettings.height);
-}
+    
+    window.addEventListener('resize', updateGrid)
+    setTimeout(updateGrid, 100)
+});
 
 // Update the grid dimensions and layout
-function updateGrid(gridWidth, gridHeight) {
+export function updateGrid() {
     // set height and width to zero
     gridWrapper.removeChild(grid);
 
-    const cellWidth = gridWrapper.clientWidth / gridWidth;
-    const cellHeight = gridWrapper.clientHeight / gridHeight;
-    const cellSize = Math.min(cellWidth, cellHeight);
+    const cellWidth = gridWrapper.clientWidth / gridSettings.width;
+    const cellHeight = gridWrapper.clientHeight / gridSettings.height;
+    gridSettings.cellSize = Math.min(cellWidth, cellHeight);
 
-    grid.style.width = `${cellSize * gridWidth}px`;
-    grid.style.height = `${cellSize * gridHeight}px`;
-    grid.style.backgroundSize = `${cellSize}px ${cellSize}px`;
-    grid.style.backgroundPosition = `-${cellSize / 2}px -${cellSize / 2}px`;
+    grid.style.width = `${gridSettings.cellSize * gridSettings.width}px`;
+    grid.style.height = `${gridSettings.cellSize * gridSettings.height}px`;
+    grid.style.backgroundSize = `${gridSettings.cellSize}px ${gridSettings.cellSize}px`;
+    grid.style.backgroundPosition = `-${gridSettings.cellSize / 2}px -${gridSettings.cellSize / 2}px`;
+    // remove the parts of the grid that are outside the grid
+    grid.style.clipPath = `polygon(0 0, 100% 0, 100% 100%, 0 100%)`;
 
     gridWrapper.appendChild(grid);
 
-    // Update screen settings
-    screenSettings.gridWidth = gridWidth * cellSize;
-    screenSettings.gridHeight = gridHeight * cellSize;
-    screenSettings.cellSize = cellSize;
+    gridRect = grid.getBoundingClientRect();
+
+    // update positions of each child
+    grid.querySelectorAll('.object').forEach((object) => {
+        placeObject(object);
+    })
 }
 
 // Calculate the grid position (row/col) based on screen mouse coordinates
 export function getGridPosition(grid, mouseX, mouseY) {
-    const gridRect = grid.getBoundingClientRect();
-
     // Calculate the relative mouse position within the grid
     const xRelative = mouseX - gridRect.left;
     const yRelative = mouseY - gridRect.top;
@@ -103,8 +67,6 @@ export function getGridPosition(grid, mouseX, mouseY) {
 
 // Convert the grid (row/col) back into screen coordinates for absolute positioning
 export function getScreenPosition(grid, row, col) {
-    const gridRect = grid.getBoundingClientRect();
-
     // Determine the size of a single cell based on the current grid settings
     const cellWidth = gridRect.width / gridSettings.width;
     const cellHeight = gridRect.height / gridSettings.height;
@@ -117,4 +79,66 @@ export function getScreenPosition(grid, row, col) {
 }
 
 // Expose gridSettings for external use (like in settings.js)
-export { gridSettings, screenSettings };
+export { grid, gridSettings };
+
+// takes in a screen position, outputs the cell position
+export function screenCellPos(screenX, screenY) {
+    // Calculate the relative mouse position within the grid
+    const xRelative = screenX - gridRect.left;
+    const yRelative = screenY - gridRect.top;
+    
+    // Determine the size of a single cell based on the current grid settings
+    const cellWidth = gridRect.width / gridSettings.width;
+    const cellHeight = gridRect.height / gridSettings.height;
+    
+    // Calculate which cell the item was dropped on
+    const x = Math.floor(xRelative / cellWidth);
+    const y = Math.floor(yRelative / cellHeight);
+
+    return { x, y };
+    
+}
+
+export function cellScreenPos(cellX, cellY) {
+    let x = gridRect.left + cellX * gridSettings.cellSize;
+    let y = gridRect.top + cellY * gridSettings.cellSize;
+
+    return { x, y };
+}
+
+export function objectInsideGrid(cellX, cellY, cellWidth, cellHeight)  {
+    cellX = cellX - (cellWidth / 2)
+    cellY = cellY - (cellHeight / 2)
+
+    let insideLeft = (cellX + cellWidth) > 0
+    let insideRight = (cellX) < gridSettings.width
+    let insideTop = (cellY + cellHeight) > 0
+    let insideBottom = (cellY) < gridSettings.height
+
+    let insideBounds = insideLeft && insideRight && insideTop && insideBottom;
+
+    // check if collision with any other objects
+    grid.querySelectorAll('.object').forEach((object) => {
+        const objectCellX = parseInt(object.dataset.cellx)
+        const objectCellY = parseInt(object.dataset.celly)
+        const objectCellWidth = parseInt(object.dataset.cellwidth)
+        const objectCellHeight = parseInt(object.dataset.cellheight)
+
+        if (cellX < objectCellX + objectCellWidth && cellX + cellWidth > objectCellX && cellY < objectCellY + objectCellHeight && cellY + cellHeight > objectCellY) {
+            insideBounds = false;
+        }
+
+    })
+
+    return insideBounds
+}
+
+export function placeObject(object) {
+    let cellPos = {x: object.dataset.cellx, y: object.dataset.celly}
+    let screenPos = cellScreenPos(cellPos.x, cellPos.y);
+    object.style.left = `${screenPos.x}px`;
+    object.style.top = `${screenPos.y}px`;
+
+    object.style.width = `${object.dataset.cellwidth * gridSettings.cellSize}px`;
+    object.style.height = `${object.dataset.cellheight * gridSettings.cellSize}px`;
+}
