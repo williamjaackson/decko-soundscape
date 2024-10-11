@@ -1,9 +1,10 @@
 import { 
+    lastSelection,
     screenCellPos, 
     cellScreenPos, 
-    objectInsideGrid,
+    validateObjectPosition,
     grid,
-    placeObject
+    placeObject,
 } from './grid.js';
 import { createObject } from './objects.js';
 import { itemData } from './inventory.js';
@@ -14,30 +15,30 @@ document.addEventListener('DOMContentLoaded', () => {
     displayElementsContainer = document.getElementById('display-elements');
 })
 
-let ghostObject;
-let ghostItem;
+export const ghost = {object: null};
+// let ghostItem;
 
 function clearGhosts() {
-    if (ghostObject) {
-        displayElementsContainer.removeChild(ghostObject);
-        ghostObject = null;
+    if (ghost.object) {
+        displayElementsContainer.removeChild(ghost.object);
+        ghost.object = null;
     }
-    if (ghostItem) {
-        displayElementsContainer.removeChild(ghostItem);
-        ghostItem = null;
-    }
+    // if (ghostItem) {
+    //     displayElementsContainer.removeChild(ghostItem);
+    //     ghostItem = null;
+    // }
 }
 
-function moveElement(element, {x = element.offsetLeft, y = element.offsetTop}, snapToGrid = false) {
+export function moveElement(element, {x = element.offsetLeft, y = element.offsetTop}, snapToGrid = false) {
     if (snapToGrid) {
         let cellPos = screenCellPos(x, y);
         let screenPos = cellScreenPos(cellPos.x, cellPos.y);
 
         x = screenPos.x;
         y = screenPos.y;
-        
+
         // check if element is inside the grid. if its not hide it.
-        if (!objectInsideGrid(cellPos.x , cellPos.y, parseInt(element.dataset.cellwidth), parseInt(element.dataset.cellheight))) {
+        if (!validateObjectPosition(cellPos.x , cellPos.y, parseInt(element.dataset.cellwidth), parseInt(element.dataset.cellheight))) {
             // element.style.display = 'none';
             // red overlay
             element.style.backgroundColor = 'rgba(255, 0, 0, 1)';
@@ -57,56 +58,58 @@ export function inventoryItem(item) {
         clearGhosts()
 
         // Create a ghost object to show where the item will be dropped
-        ghostObject = createObject(itemData(item.dataset.id));
-        ghostObject.style.position = 'absolute';
-        ghostObject.classList.add('spawning-indicator');
-        ghostObject.dataset.cellwidth = itemData(item.dataset.id).width;
-        ghostObject.dataset.cellheight = itemData(item.dataset.id).height;
-        displayElementsContainer.appendChild(ghostObject);
-        moveElement(ghostObject, {x: event.pageX, y: event.pageY}, true);
+        ghost.object = createObject(itemData(item.dataset.id));
+        ghost.object.style.position = 'absolute';
+        ghost.object.classList.add('spawning-indicator');
+        ghost.object.dataset.cellwidth = itemData(item.dataset.id).width;
+        ghost.object.dataset.cellheight = itemData(item.dataset.id).height;
+        ghost.object.dataset.id = item.dataset.id
+        displayElementsContainer.appendChild(ghost.object);
+        moveElement(ghost.object, {x: event.pageX, y: event.pageY}, true);
+        
+        lastSelection.object = ghost.object;
         
         // Create a clone of the item for dragging
-        ghostItem = item.cloneNode(true);
-        ghostItem.style.position = 'absolute';
-        ghostItem.style.width = `${item.offsetWidth}px`;
-        ghostItem.style.height = `${item.offsetHeight}px`;
-        ghostItem.classList.add('spawning-indicator', 'bg-white', 'rounded-md');
+        // ghostItem = item.cloneNode(true);
+        // ghostItem.style.position = 'absolute';
+        // ghostItem.style.width = `${item.offsetWidth}px`;
+        // ghostItem.style.height = `${item.offsetHeight}px`;
+        // ghostItem.classList.add('spawning-indicator', 'bg-white', 'rounded-md');
 
-        displayElementsContainer.appendChild(ghostItem);
-        moveElement(ghostItem, {x: event.pageX, y: event.pageY});
+        // displayElementsContainer.appendChild(ghostItem);
+        // moveElement(ghostItem, {x: event.pageX, y: event.pageY});
     });
 
     
 }
 
 window.addEventListener('mousemove', (event) => {
-    if (ghostObject) {
+    if (ghost.object) {
         event.preventDefault();
-        moveElement(ghostObject, {x: event.pageX, y: event.pageY}, true);
+        moveElement(ghost.object, {x: event.pageX, y: event.pageY}, true);
     }
-    if (ghostItem) {
-        event.preventDefault();
-        moveElement(ghostItem, {x: event.pageX, y: event.pageY});
-    }
+    // if (ghostItem) {
+    //     event.preventDefault();
+    //     moveElement(ghostItem, {x: event.pageX, y: event.pageY});
+    // }
 });
 
 window.addEventListener('mouseup', (event) => {
-    if (ghostItem && ghostObject) {
+    if (ghost.object) { // && ghostItem
         let cellPos = screenCellPos(event.pageX, event.pageY);
-        let screenPos = cellScreenPos(cellPos.x, cellPos.y);
 
-        if (objectInsideGrid(cellPos.x, cellPos.y, parseInt(ghostObject.dataset.cellwidth), parseInt(ghostObject.dataset.cellheight))) {
-            const object = createObject(itemData(ghostItem.dataset.id));
+        if (validateObjectPosition(cellPos.x, cellPos.y, parseInt(ghost.object.dataset.cellwidth), parseInt(ghost.object.dataset.cellheight))) {
+            const object = createObject(itemData(ghost.object.dataset.id));
             object.style.position = 'absolute';
             object.classList.add('object');
             grid.appendChild(object);
-            object.dataset.cellx = cellPos.x - parseInt(ghostObject.dataset.cellwidth) / 2;
-            object.dataset.celly = cellPos.y - parseInt(ghostObject.dataset.cellheight) / 2;
-            object.dataset.cellwidth = ghostObject.dataset.cellwidth;
-            object.dataset.cellheight = ghostObject.dataset.cellheight;
-            // object.style.left = `${screenPos.x - object.offsetWidth / 2}px`;
-            // object.style.top = `${screenPos.y - object.offsetHeight / 2}px`;
+            object.dataset.cellx = cellPos.x - parseInt(ghost.object.dataset.cellwidth) / 2;
+            object.dataset.celly = cellPos.y - parseInt(ghost.object.dataset.cellheight) / 2;
+            object.dataset.cellwidth = ghost.object.dataset.cellwidth;
+            object.dataset.cellheight = ghost.object.dataset.cellheight;
+            object.style.userSelect = 'none'
             placeObject(object)
+            lastSelection.object = object;
         }
 
         // moveElement(object, {x: event.pageX, y: event.pageY});

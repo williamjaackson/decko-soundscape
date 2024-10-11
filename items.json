@@ -5,7 +5,9 @@
         "image": "images/oak-square-vertical.jpg",
 
         "width": 6,
-        "height": 6
+        "height": 6,
+
+        "material": "oak"
     },
     {
         "id": "oak_square_h",
@@ -13,7 +15,9 @@
         "image": "images/oak-square-horizontal.jpg",
 
         "width": 6,
-        "height": 6
+        "height": 6,
+
+        "material": "oak"
     },
     {
         "id": "oak_long_v",
@@ -21,7 +25,9 @@
         "image": "images/oak-long-vertical.jpg",
 
         "width": 6,
-        "height": 12
+        "height": 12,
+
+        "material": "oak"
     },
     {
         "id": "oak_long_h",
@@ -29,7 +35,9 @@
         "image": "images/oak-long-horizontal.jpg",
 
         "width": 12,
-        "height": 6
+        "height": 6,
+
+        "material": "oak"
     },
 
     {
@@ -38,7 +46,9 @@
         "image": "images/beech-square-vertical.jpg",
 
         "width": 6,
-        "height": 6
+        "height": 6,
+
+        "material": "beech"
     },
     {
         "id": "beech_square_h",
@@ -46,7 +56,9 @@
         "image": "images/beech-square-horizontal.jpg",
 
         "width": 6,
-        "height": 6
+        "height": 6,
+
+        "material": "beech"
     },
     {
         "id": "beech_long_v",
@@ -54,7 +66,9 @@
         "image": "images/beech-long-vertical.jpg",
 
         "width": 6,
-        "height": 12
+        "height": 12,
+
+        "material": "beech"
     },
     {
         "id": "beech_long_h",
@@ -62,6 +76,8 @@
         "image": "images/beech-long-horizontal.jpg",
 
         "width": 12,
-        "height": 6
+        "height": 6,
+
+        "material": "beech"
     }
 ]

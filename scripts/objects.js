@@ -1,4 +1,5 @@
 import { grid, gridSettings, getScreenPosition } from './grid.js';
+import { setupObjectMovement } from './move-obj.js';
 
 // export function itemPlacement(gridPos, itemData) {
 //     const itemGridSize = {
@@ -28,18 +29,17 @@ export function createObject(itemData) {
     const itemContainer = document.createElement('div');
     itemContainer.style.width = `${(itemData.width) * gridSettings.cellSize}px`;
     itemContainer.style.height = `${(itemData.height) * gridSettings.cellSize}px`;
+    itemContainer.dataset.id = itemData.id
     
     const itemImage = document.createElement('img');
     itemImage.src = itemData.image;
     itemImage.alt = itemData.name;
     itemImage.draggable = false;
-    
+
     itemContainer.appendChild(itemImage);
 
-    itemContainer.addEventListener('mousedown', (event) => {
-        event.preventDefault();
-        grid.removeChild(itemContainer);
-    });
+    
+    setupObjectMovement(itemContainer)
 
     return itemContainer;
 }

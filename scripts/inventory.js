@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Create inventory list
             data.forEach(item => {
                 const itemWrapper = document.createElement('div');
+                itemWrapper.classList.add('inventory-item')
+                itemWrapper.dataset.material = item.material;
 
                 const itemDiv = document.createElement('div');
                 itemDiv.classList.add('flex', 'flex-col', 'justify-center', 'select-none');

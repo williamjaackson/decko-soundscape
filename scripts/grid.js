@@ -4,6 +4,10 @@ const gridSettings = {
     cellSize: null,      
 };
 
+export const lastSelection = {
+    object: null,
+}
+
 // const screenSettings = {
 //     gridWidth: null,
 //     gridHeight: null,
@@ -106,7 +110,7 @@ export function cellScreenPos(cellX, cellY) {
     return { x, y };
 }
 
-export function objectInsideGrid(cellX, cellY, cellWidth, cellHeight)  {
+export function objectInsideGrid(cellX, cellY, cellWidth, cellHeight) {
     cellX = cellX - (cellWidth / 2)
     cellY = cellY - (cellHeight / 2)
 
@@ -115,9 +119,14 @@ export function objectInsideGrid(cellX, cellY, cellWidth, cellHeight)  {
     let insideTop = (cellY + cellHeight) > 0
     let insideBottom = (cellY) < gridSettings.height
 
-    let insideBounds = insideLeft && insideRight && insideTop && insideBottom;
+    return insideLeft && insideRight && insideTop && insideBottom;
+}
 
-    // check if collision with any other objects
+export function objectInsideObject(cellX, cellY, cellWidth, cellHeight) {
+    cellX = cellX - (cellWidth / 2)
+    cellY = cellY - (cellHeight / 2)
+
+    let collision = false;
     grid.querySelectorAll('.object').forEach((object) => {
         const objectCellX = parseInt(object.dataset.cellx)
         const objectCellY = parseInt(object.dataset.celly)
@@ -125,12 +134,18 @@ export function objectInsideGrid(cellX, cellY, cellWidth, cellHeight)  {
         const objectCellHeight = parseInt(object.dataset.cellheight)
 
         if (cellX < objectCellX + objectCellWidth && cellX + cellWidth > objectCellX && cellY < objectCellY + objectCellHeight && cellY + cellHeight > objectCellY) {
-            insideBounds = false;
+            collision = true;
         }
-
     })
 
-    return insideBounds
+    return collision;
+}
+
+export function validateObjectPosition(cellX, cellY, cellWidth, cellHeight)  {
+    const insideBounds = objectInsideGrid(cellX, cellY, cellWidth, cellHeight);
+    const insideObject = objectInsideObject(cellX, cellY, cellWidth, cellHeight);
+
+    return insideBounds && !insideObject
 }
 
 export function placeObject(object) {
