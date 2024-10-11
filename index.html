@@ -8,20 +8,10 @@
     <script type="module" src="index.js"></script>
 
     <style>
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(5, 1fr);
-            height: 100vh; /* Full viewport height */
-        }
-    
-        .grid-item {
-            display: flex; /* Center content */
-            justify-content: center;
-            align-items: center;
-            background-color: #4A5568; /* Background color */
-            color: white; /* Text color */
-            border: 1px solid #2D3748; /* Optional border */
+        #grid {
+            background-color: white;
+            background-image: radial-gradient(rgb(100 116 139 / 0.2) 1px, transparent 0), radial-gradient(rgb(100 116 139 / 0.2) 1px, transparent 0);
+            /* border: 2px solid red; */
         }
     </style>    
       
@@ -31,7 +21,7 @@
         <aside class="flex flex-col w-min justify-between p-4 border-r border-slate-100"> <!-- Sidebar -->
             <div class="flex flex-col gap-2 w-min">
                 <!-- Title -->
-                <h1 class="font-light">Decko Soundscape <button onclick="alert('calc is short for calculator btw.')">Calc</button></h1>
+                <h1 class="font-light">Decko Soundscape Designer</h1>
                 <hr>
                 
                 <div class="grid gap-1"> <!-- Room Dimensions -->
@@ -83,7 +73,7 @@
             
             <div> <!-- Copyright + Credits-->
                 <p class="text-[8px] w-max mx-auto">
-                    Version 0.1.2 (latest)
+                    Version 0.2.5 (latest)
                 </p>
                 <p id="credits" class="text-[8px] w-max mx-auto">
                     Built by <a id="credits-website" href="https://github.com/williamjaackson" class="underline hover:text-blue-500">William Jackson</a> • <a href="https://github.com/williamjaackson" class="underline hover:text-blue-500">Github</a>
@@ -104,7 +94,7 @@
         <!-- Main Room -->
         <main class="w-full h-screen flex items-center justify-center">
             <div id="grid-wrapper" class="w-full h-full p-auto bg-slate-100 grid place-items-center">
-                <div id="grid">
+                <div id="grid" class="grid">
                 </div>
                     
             </div>

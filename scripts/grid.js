@@ -1,8 +1,14 @@
 const gridSettings = {
-    width: 60,
-    height: 80,
-    gridSize: 100,
+    width: null,
+    height: null,
+    cellSize: 100,
 };
+
+const screenSettings = {
+    gridWidth: null,
+    gridHeight: null,
+    cellSize: null,
+}
 
 let gridWrapper;
 let grid;
@@ -56,7 +62,8 @@ export function resizeGrid() {
 
 // Update the grid dimensions and layout
 function updateGrid(gridWidth, gridHeight) {
-    clearGrid();
+    // set height and width to zero
+    gridWrapper.removeChild(grid);
 
     const cellWidth = gridWrapper.clientWidth / gridWidth;
     const cellHeight = gridWrapper.clientHeight / gridHeight;
@@ -64,25 +71,18 @@ function updateGrid(gridWidth, gridHeight) {
 
     grid.style.width = `${cellSize * gridWidth}px`;
     grid.style.height = `${cellSize * gridHeight}px`;
-    grid.style.display = 'grid';
-    grid.style.gridTemplateColumns = `repeat(${gridWidth}, minmax(0, 1fr))`;
-    grid.style.gridTemplateRows = `repeat(${gridHeight}, minmax(0, 1fr))`;
-    grid.style.backgroundImage = `radial-gradient(rgb(100 116 139 / 0.2) 1px, transparent 0), radial-gradient(rgb(100 116 139 / 0.2) 1px, transparent 0)`;
     grid.style.backgroundSize = `${cellSize}px ${cellSize}px`;
     grid.style.backgroundPosition = `-${cellSize / 2}px -${cellSize / 2}px`;
-}
 
-// Clear the current grid and create a new one
-function clearGrid() {
-    if (grid) {
-        gridWrapper.removeChild(grid);
-    }
-    grid = document.createElement('div');
-    grid.id = 'grid';
-    grid.classList.add('bg-white');
     gridWrapper.appendChild(grid);
+
+    // Update screen settings
+    screenSettings.gridWidth = gridWidth * cellSize;
+    screenSettings.gridHeight = gridHeight * cellSize;
+    screenSettings.cellSize = cellSize;
 }
 
+// Calculate the grid position (row/col) based on screen mouse coordinates
 export function getGridPosition(grid, mouseX, mouseY) {
     const gridRect = grid.getBoundingClientRect();
 
@@ -101,5 +101,20 @@ export function getGridPosition(grid, mouseX, mouseY) {
     return { row, col };
 }
 
+// Convert the grid (row/col) back into screen coordinates for absolute positioning
+export function getScreenPosition(grid, row, col) {
+    const gridRect = grid.getBoundingClientRect();
+
+    // Determine the size of a single cell based on the current grid settings
+    const cellWidth = gridRect.width / gridSettings.width;
+    const cellHeight = gridRect.height / gridSettings.height;
+
+    // Calculate the screen position for the given row and col
+    const xScreen = gridRect.left + col * cellWidth;
+    const yScreen = gridRect.top + row * cellHeight;
+
+    return { x: xScreen, y: yScreen };
+}
+
 // Expose gridSettings for external use (like in settings.js)
-export { gridSettings };
+export { gridSettings, screenSettings };

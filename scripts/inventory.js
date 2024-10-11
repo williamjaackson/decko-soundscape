@@ -1,12 +1,16 @@
 import { inventoryItem } from './spawning.js';
 
+const inventoryList = document.getElementById('inventory');
+export const inventoryData = {}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Load all items from items.json
     fetch('items.json')
         .then(response => response.json())
         .then(data => {
+            // Create inventory list and store the data
+            inventoryData.items = data;
             // Create inventory list
-            const inventoryList = document.getElementById('inventory');
             data.forEach(item => {
                 const itemWrapper = document.createElement('div');
 

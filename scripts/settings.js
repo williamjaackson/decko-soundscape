@@ -13,15 +13,15 @@ export function initRoomSettings() {
     saveRoomSettings.addEventListener('click', saveNewRoomSettings);
 
     // Set initial grid size from input
-    gridSettings.width = Math.floor(parseInt(roomWidth.value) / gridSettings.gridSize);
-    gridSettings.height = Math.floor(parseInt(roomHeight.value) / gridSettings.gridSize);
+    gridSettings.width = Math.floor(parseInt(roomWidth.value) / gridSettings.cellSize);
+    gridSettings.height = Math.floor(parseInt(roomHeight.value) / gridSettings.cellSize);
     resizeGrid();
 }
 
 // Check for unsaved changes and show the save button if necessary
 function checkUnsavedChanges() {
-    const currentWidth = Math.floor(parseInt(roomWidth.value) / gridSettings.gridSize);
-    const currentHeight = Math.floor(parseInt(roomHeight.value) / gridSettings.gridSize);
+    const currentWidth = Math.floor(parseInt(roomWidth.value) / gridSettings.cellSize);
+    const currentHeight = Math.floor(parseInt(roomHeight.value) / gridSettings.cellSize);
 
     if (currentWidth !== gridSettings.width || currentHeight !== gridSettings.height) {
         saveRoomSettings.classList.remove('hidden');
@@ -39,13 +39,13 @@ function saveNewRoomSettings() {
         return;
     }
 
-    gridSettings.width = Math.floor(width / gridSettings.gridSize);
-    gridSettings.height = Math.floor(height / gridSettings.gridSize);
+    gridSettings.width = Math.floor(width / gridSettings.cellSize);
+    gridSettings.height = Math.floor(height / gridSettings.cellSize);
 
     saveRoomSettings.classList.add('hidden');
 
-    roomWidth.value = gridSettings.width * gridSettings.gridSize;
-    roomHeight.value = gridSettings.height * gridSettings.gridSize;
+    roomWidth.value = gridSettings.width * gridSettings.cellSize;
+    roomHeight.value = gridSettings.height * gridSettings.cellSize;
     resizeGrid();
 }
 
@@ -61,8 +61,8 @@ function validateRoomDimensions(width, height) {
         return false;
     }
 
-    if (width < gridSettings.gridSize || height < gridSettings.gridSize) {
-        showError(`Value cannot be less than ${gridSettings.gridSize}mm`);
+    if (width < gridSettings.cellSize || height < gridSettings.cellSize) {
+        showError(`Value cannot be less than ${gridSettings.cellSize}mm`);
         return false;
     }
 
