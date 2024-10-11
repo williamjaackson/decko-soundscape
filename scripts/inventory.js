@@ -1,19 +1,19 @@
-{/* <div class="flex flex-col justify-center" title="DECKO SOUNDSCAPE Acoustic Wall - OAK - Square - Price/Box of 5 Panels">
-        <img src="./images/oak-square.png" alt="Item 1" class="w-full object-scale-down aspect-square bg-slate-200 hover:bg-slate-300 cursor-pointer rounded-md p-3" draggable="false">
-        <span class="text-sm font-bold w-min mx-auto">600x600</span>
-    </div> */}
+import { inventoryItem } from './spawning.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // load all items from items.json
+    // Load all items from items.json
     fetch('items.json')
         .then(response => response.json())
         .then(data => {
-            // create inventory list
+            // Create inventory list
             const inventoryList = document.getElementById('inventory');
             data.forEach(item => {
+                const itemWrapper = document.createElement('div');
+
                 const itemDiv = document.createElement('div');
                 itemDiv.classList.add('flex', 'flex-col', 'justify-center', 'select-none');
                 itemDiv.title = item.title;
+                itemDiv.dataset.id = item.id; // Store the item ID
 
                 const itemImage = document.createElement('img');
                 itemImage.src = item.image;
@@ -28,7 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 itemDiv.appendChild(itemImage);
                 itemDiv.appendChild(itemName);
 
-                inventoryList.appendChild(itemDiv);
+                itemWrapper.appendChild(itemDiv);
+                inventoryList.appendChild(itemWrapper);
+
+                inventoryItem(itemDiv); // Attach the drag and drop behavior
             });
         });
 });

@@ -61,8 +61,8 @@ function validateRoomDimensions(width, height) {
         return false;
     }
 
-    if (width < 100 || height < 100) {
-        showError('Value cannot be less than 100mm');
+    if (width < gridSettings.gridSize || height < gridSettings.gridSize) {
+        showError(`Value cannot be less than ${gridSettings.gridSize}mm`);
         return false;
     }
 

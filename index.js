@@ -1,5 +1,6 @@
 import './scripts/copyright.js';
 import './scripts/inventory.js'
+import './scripts/spawning.js';
 import { initGrid, resizeGrid } from './scripts/grid.js';
 import { initRoomSettings } from './scripts/settings.js';
 

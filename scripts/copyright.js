@@ -8,7 +8,7 @@ function takedown(reason) {
 document.addEventListener('DOMContentLoaded', () => {
     // update copyright year
     const copyrightYear = document.getElementById('copyright-year')
-    copyrightYear.innerHTML = new Date().getFullYear();
+    copyrightYear.innerHTML = new Date().getFullYear().toString();
 
 
     // nocache
