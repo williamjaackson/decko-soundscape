@@ -1,0 +1,22 @@
+[
+    {
+        "id": "oak_square",
+        "name": "Oak Square (Vertical)",
+        "image": "images/oak-square.png",
+        "width": 600,
+        "height": 600,
+        "material": "Oak",
+        "title": "DECKO SOUNDSCAPE Acoustic Wall - OAK - Square - Price/Box of 5 Panels",
+        "box": 5
+    },
+    {
+        "id": "oak_long",
+        "name": "Oak Long (Vertical)",
+        "image": "images/oak-long.png",
+        "width": 600,
+        "height": 1200,
+        "material": "Oak",
+        "title": "DECKO SOUNDSCAPE Acoustic Wall - OAK - Long - Price/Box of 3 Panels",
+        "box": 3
+    }
+]

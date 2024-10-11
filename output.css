@@ -618,6 +618,14 @@ video {
   margin-bottom: auto;
 }
 
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
 .block {
   display: block;
 }
@@ -709,6 +717,12 @@ video {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.select-none {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 .resize {

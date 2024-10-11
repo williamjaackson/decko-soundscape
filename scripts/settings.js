@@ -25,6 +25,8 @@ function checkUnsavedChanges() {
 
     if (currentWidth !== gridSettings.width || currentHeight !== gridSettings.height) {
         saveRoomSettings.classList.remove('hidden');
+    } else {
+        saveRoomSettings.classList.add('hidden');
     }
 }
 
@@ -41,6 +43,9 @@ function saveNewRoomSettings() {
     gridSettings.height = Math.floor(height / gridSettings.gridSize);
 
     saveRoomSettings.classList.add('hidden');
+
+    roomWidth.value = gridSettings.width * gridSettings.gridSize;
+    roomHeight.value = gridSettings.height * gridSettings.gridSize;
     resizeGrid();
 }
 
