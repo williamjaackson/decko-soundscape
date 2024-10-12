@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // update filter
             inventoryContainer.querySelectorAll('.inventory-item').forEach((item) => {
                 // check if any filter is active
-                if (!(activeFilters.oak || activeFilters.ebondy || activeFilters.beech || activeFilters.maple)) {
+                if (!(activeFilters.oak || activeFilters.ebony || activeFilters.beech || activeFilters.maple)) {
                     item.style.display = 'block';
                 } else {
                     if (activeFilters[item.dataset.material]) {
