@@ -1462,3 +1462,9 @@ video {
     display: none;
   }
 }
+
+@media (min-width: 1024px) {
+  .lg\:hidden {
+    display: none;
+  }
+}
