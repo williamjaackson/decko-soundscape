@@ -1,83 +1,162 @@
 [
     {
         "id": "oak_square_v",
+        "name": "Oak (Square)",
         "title": "DECKO SOUNDSCAPE Acoustic Wall - OAK - Square - Price/Box of 5 Panels",
         "image": "images/oak-square-vertical.jpg",
-
         "width": 6,
         "height": 6,
-
-        "material": "oak"
+        "material": "oak",
+        "box": 5
     },
     {
         "id": "oak_square_h",
+        "name": "Oak (Square)",
         "title": "DECKO SOUNDSCAPE Acoustic Wall - OAK - Square - Price/Box of 5 Panels",
         "image": "images/oak-square-horizontal.jpg",
-
         "width": 6,
         "height": 6,
-
-        "material": "oak"
+        "material": "oak",
+        "box": 5
     },
     {
         "id": "oak_long_v",
+        "name": "Oak (Long)",
         "title": "DECKO SOUNDSCAPE Acoustic Wall - OAK - Long - Price/Box of 3 Panels",
         "image": "images/oak-long-vertical.jpg",
-
         "width": 6,
         "height": 12,
-
-        "material": "oak"
+        "material": "oak",
+        "box": 3
     },
     {
         "id": "oak_long_h",
+        "name": "Oak (Long)",
         "title": "DECKO SOUNDSCAPE Acoustic Wall - OAK - Long - Price/Box of 3 Panels",
         "image": "images/oak-long-horizontal.jpg",
-
         "width": 12,
         "height": 6,
-
-        "material": "oak"
+        "material": "oak",
+        "box": 3
     },
-
     {
-        "id": "beech_square_v",
-        "title": "DECKO SOUNDSCAPE Acoustic Wall - BEECH - Square - Price/Box of 5 Panels",
-        "image": "images/beech-square-vertical.jpg",
-
+        "id": "ebony_square_v",
+        "name": "Ebony (Square)",
+        "title": "DECKO SOUNDSCAPE Acoustic Wall - EBONY - Square - Price/Box of 5 Panels",
+        "image": "images/ebony-square-vertical.jpg",
         "width": 6,
         "height": 6,
-
-        "material": "beech"
+        "material": "ebony",
+        "box": 5
+    },
+    {
+        "id": "ebony_square_h",
+        "name": "Ebony (Square)",
+        "title": "DECKO SOUNDSCAPE Acoustic Wall - EBONY - Square - Price/Box of 5 Panels",
+        "image": "images/ebony-square-horizontal.jpg",
+        "width": 6,
+        "height": 6,
+        "material": "ebony",
+        "box": 5
+    },
+    {
+        "id": "ebony_long_v",
+        "name": "Ebony (Long)",
+        "title": "DECKO SOUNDSCAPE Acoustic Wall - EBONY - Long - Price/Box of 3 Panels",
+        "image": "images/ebony-long-vertical.jpg",
+        "width": 6,
+        "height": 12,
+        "material": "ebony",
+        "box": 3
+    },
+    {
+        "id": "ebony_long_h",
+        "name": "Ebony (Long)",
+        "title": "DECKO SOUNDSCAPE Acoustic Wall - EBONY - Long - Price/Box of 3 Panels",
+        "image": "images/ebony-long-horizontal.jpg",
+        "width": 12,
+        "height": 6,
+        "material": "ebony",
+        "box": 3
+    },
+    {
+        "id": "beech_square_v",
+        "name": "Beech (Square)",
+        "title": "DECKO SOUNDSCAPE Acoustic Wall - BEECH - Square - Price/Box of 5 Panels",
+        "image": "images/beech-square-vertical.jpg",
+        "width": 6,
+        "height": 6,
+        "material": "beech",
+        "box": 5
     },
     {
         "id": "beech_square_h",
+        "name": "Beech (Square)",
         "title": "DECKO SOUNDSCAPE Acoustic Wall - BEECH - Square - Price/Box of 5 Panels",
         "image": "images/beech-square-horizontal.jpg",
-
         "width": 6,
         "height": 6,
-
-        "material": "beech"
+        "material": "beech",
+        "box": 5
     },
     {
         "id": "beech_long_v",
+        "name": "Beech (Long)",
         "title": "DECKO SOUNDSCAPE Acoustic Wall - BEECH - Long - Price/Box of 3 Panels",
         "image": "images/beech-long-vertical.jpg",
-
         "width": 6,
         "height": 12,
-
-        "material": "beech"
+        "material": "beech",
+        "box": 3
     },
     {
         "id": "beech_long_h",
+        "name": "Beech (Long)",
         "title": "DECKO SOUNDSCAPE Acoustic Wall - BEECH - Long - Price/Box of 3 Panels",
         "image": "images/beech-long-horizontal.jpg",
-
         "width": 12,
         "height": 6,
-
-        "material": "beech"
+        "material": "beech",
+        "box": 3
+    },
+    {
+        "id": "maple_square_v",
+        "name": "Maple (Square)",
+        "title": "DECKO SOUNDSCAPE Acoustic Wall - MAPLE - Square - Price/Box of 5 Panels",
+        "image": "images/maple-square-vertical.jpg",
+        "width": 6,
+        "height": 6,
+        "material": "maple",
+        "box": 5
+    },
+    {
+        "id": "maple_square_h",
+        "name": "Maple (Square)",
+        "title": "DECKO SOUNDSCAPE Acoustic Wall - MAPLE - Square - Price/Box of 5 Panels",
+        "image": "images/maple-square-horizontal.jpg",
+        "width": 6,
+        "height": 6,
+        "material": "maple",
+        "box": 5
+    },
+    {
+        "id": "maple_long_v",
+        "name": "Maple (Long)",
+        "title": "DECKO SOUNDSCAPE Acoustic Wall - MAPLE - Long - Price/Box of 3 Panels",
+        "image": "images/maple-long-vertical.jpg",
+        "width": 6,
+        "height": 12,
+        "material": "maple",
+        "box": 3
+    },
+    {
+        "id": "maple_long_h",
+        "name": "Maple (Long)",
+        "title": "DECKO SOUNDSCAPE Acoustic Wall - MAPLE - Long - Price/Box of 3 Panels",
+        "image": "images/maple-long-horizontal.jpg",
+        "width": 12,
+        "height": 6,
+        "material": "maple",
+        "box": 3
     }
 ]

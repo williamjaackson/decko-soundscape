@@ -49,6 +49,10 @@ export function updateGrid() {
     // update positions of each child
     grid.querySelectorAll('.object').forEach((object) => {
         placeObject(object);
+        // check if the object is outside the grid
+        if (!objectInsideGrid(parseInt(object.dataset.cellx), parseInt(object.dataset.celly), parseInt(object.dataset.cellwidth), parseInt(object.dataset.cellheight), false)) {
+            grid.removeChild(object)
+        }
     })
 }
 
@@ -110,9 +114,11 @@ export function cellScreenPos(cellX, cellY) {
     return { x, y };
 }
 
-export function objectInsideGrid(cellX, cellY, cellWidth, cellHeight) {
-    cellX = cellX - (cellWidth / 2)
-    cellY = cellY - (cellHeight / 2)
+export function objectInsideGrid(cellX, cellY, cellWidth, cellHeight, centered = true) {
+    if (centered) {
+        cellX = cellX - (cellWidth / 2)
+        cellY = cellY - (cellHeight / 2)
+    }
 
     let insideLeft = (cellX + cellWidth) > 0
     let insideRight = (cellX) < gridSettings.width

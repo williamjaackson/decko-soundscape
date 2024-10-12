@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="output.css">
     <title>DECKO Soundscape Designer</title>
+    <!-- <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script> -->
     <script type="module" src="index.js"></script>
 
     <style>
@@ -72,6 +73,7 @@
                 <div class="grid gap-1"> <!-- Tools -->
                     <label class="uppercase text-sm text-slate-500 font-bold">Actions</label>
                     <button id="export-btn" class="bg-slate-400 hover:bg-slate-500 text-white py-1 px-4 rounded-md">export design</button>
+                    <button id="delete-btn" class="bg-slate-400 hover:bg-slate-500 text-white py-1 px-4 rounded-md">clear design</button>
                 </div>
             </div>
             
@@ -104,6 +106,27 @@
         </main>
     </div>
     <div id="display-elements" class="absolute w-screen h-screen top-0 left-0 z-1000 pointer-events-none"></div>
+    </div>
+    <!-- confirm action modal (clear design) this will delete all objects in the scene. tailwindcss -->
+    <div id="modal" class="hidden fixed top-0 left-0 w-screen h-screen flex items-center justify-center z-1000">
+        <!-- background overlay -->
+        <div id="modal-content" class="w-full max-w-lg bg-white rounded-md p-4 shadow-lg z-10">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-medium">Clear Design?</h3>
+                <button id="close-modal" class="hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <hr class="my-2">
+            <p class="text-sm text-gray-500">Are you sure you want to clear the current design? This action will remove all objects from the scene and can not be undone.</p>
+            <div class="mt-4 flex justify-between gap-2">
+                <button id="close-modal-btn" class="w-full rounded-md bg-white border border-slate-600 px-4 py-1 text-sm font-medium text-gray-900 shadow-sm hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">No, Cancel Action</button>
+                <button id="confirm-modal-btn" class="w-full rounded-md bg-red-600 px-4 py-1 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Yes, Clear Design</button>
+            </div>
+        </div>
+        <div id="modal-bg" class="fixed inset-0 bg-gray-500 bg-opacity-75"></div>
     </div>
 </body>
 </html>

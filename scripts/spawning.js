@@ -67,7 +67,7 @@ export function inventoryItem(item) {
         displayElementsContainer.appendChild(ghost.object);
         moveElement(ghost.object, {x: event.pageX, y: event.pageY}, true);
         
-        lastSelection.object = ghost.object;
+        setTimeout(() => {lastSelection.object = ghost.object;}, 100)
         
         // Create a clone of the item for dragging
         // ghostItem = item.cloneNode(true);

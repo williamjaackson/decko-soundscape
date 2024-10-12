@@ -35,7 +35,7 @@ export function setupObjectMovement(object) {
         moveElement(ghost.object, {x: event.pageX, y: event.pageY}, true);
 
         lastPosition = {x: object.dataset.cellx, y: object.dataset.celly}
-        lastSelection.object = ghost.object;
+        setTimeout(() => {lastSelection.object = ghost.object;}, 100)
 
         grid.removeChild(object);
     });
@@ -64,12 +64,12 @@ window.addEventListener('mouseup', (event) => {
         object.dataset.cellheight = ghost.object.dataset.cellheight;
         object.style.userSelect = 'none'
 
-        if (validateObjectPosition(cellPos.x, cellPos.y, parseInt(ghost.object.dataset.cellwidth), parseInt(ghost.object.dataset.cellheight))) {
-            object.dataset.cellx = cellPos.x - parseInt(ghost.object.dataset.cellwidth) / 2;
-            object.dataset.celly = cellPos.y - parseInt(ghost.object.dataset.cellheight) / 2;
-        } else if (objectInsideObject(cellPos.x, cellPos.y, parseInt(ghost.object.dataset.cellwidth), parseInt(ghost.object.dataset.cellheight))) {
+        if (objectInsideObject(cellPos.x, cellPos.y, parseInt(ghost.object.dataset.cellwidth), parseInt(ghost.object.dataset.cellheight))) {
             object.dataset.cellx = lastPosition.x
             object.dataset.celly = lastPosition.y
+        } else if (validateObjectPosition(cellPos.x, cellPos.y, parseInt(ghost.object.dataset.cellwidth), parseInt(ghost.object.dataset.cellheight))) {
+            object.dataset.cellx = cellPos.x - parseInt(ghost.object.dataset.cellwidth) / 2;
+            object.dataset.celly = cellPos.y - parseInt(ghost.object.dataset.cellheight) / 2;
         } else {
             // delete object
             grid.removeChild(object)

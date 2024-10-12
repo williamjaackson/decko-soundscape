@@ -6,5 +6,3 @@ import './scripts/settings.js';
 import './scripts/filter.js'
 import './scripts/delete.js'
 import './scripts/export.js'
-
-// RESIZE -> delete items out of bounds.
